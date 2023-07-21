@@ -1,0 +1,11 @@
+app-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 250%;
+  color: #2c2c2c;
+}
