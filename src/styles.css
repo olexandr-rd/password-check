@@ -5,6 +5,7 @@ body {
   align-items: center;
   font-family: 'Montserrat', sans-serif;
   background-color: bisque;
+  padding: 5%;
 }
 
 * {
