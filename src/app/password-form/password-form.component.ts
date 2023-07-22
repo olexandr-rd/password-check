@@ -6,21 +6,19 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./password-form.component.css']
 })
 export class PasswordFormComponent {
-  color = ['grey', "grey", "grey"];
+  color = ['grey', 'grey', 'grey'];
   @Input() password = '';
 
-  isEasy = (str: string): boolean => /^[a-z]+$/i.test(str) || /^[0-9]+$/.test(str) ||
-    /^[!@#$%^&*(),.?":{}|<>\\\/]+$/.test(str);
-  isMedium = (str: string): boolean =>
-    /^[a-z0-9]+$/i.test(str) || /^[0-9!@#$%^&*(),.?":{}|<>\\\/]+$/.test(str) ||
-    /^[!@#$%^&*(),.?":{}|<>\\\/a-z]+$/i.test(str);
-  isStrong = (str: string): boolean => /^[a-z0-9!@#$%^&*(),.?":{}|<>\\\/]+$/i.test(str);
-
+  static readonly easyPassword = /^[a-z]+|\d+|[\p{P}\p{S}]+$/ui;
+  static readonly mediumPassword = // Sorry for this being a bit too long :(
+/^(?=.*\d)(?=.*[a-z])[a-z\d]|(?=.*[a-z])(?=.*[\p{P}\p{S}])[a-z\p{P}\p{S}]|(?=.*\d)(?=.*[\p{P}\p{S}])[\d\p{P}\p{S}]+$/ui;
+  static readonly strongPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[\p{P}\p{S}])[\w\p{P}\p{S}]+$/ui;
 
   checkStrength(): void {
-    if (this.password.length < 8) this.color = ['red', 'red', 'red'];
-    else if (this.isEasy(this.password)) this.color = ['green', 'red', 'red'];
-    else if (this.isMedium(this.password)) this.color = ['green', 'green', 'red'];
-    else if (this.isStrong(this.password)) this.color = ['green', 'green', 'green'];
+    if (this.password.length > 0 && this.password.length < 8) this.color.fill('red');
+    else if (PasswordFormComponent.strongPassword.test(this.password)) this.color.fill('green');
+    else if (PasswordFormComponent.mediumPassword.test(this.password)) this.color = ['green', 'green', 'red'];
+    else if (PasswordFormComponent.easyPassword.test(this.password)) this.color = ['green', 'red', 'red'];
+    else this.color.fill('grey');
   }
 }
