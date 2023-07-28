@@ -3,18 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PasswordFormComponent } from './password-form/password-form.component';
-import { FormsModule } from "@angular/forms";
+import { PasswordInputComponent } from './password-input/password-input.component';
+import { PasswordStatusComponent } from './password-status/password-status.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CheckService } from "./check.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    PasswordFormComponent
+    PasswordFormComponent,
+    PasswordInputComponent,
+    PasswordStatusComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [CheckService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
